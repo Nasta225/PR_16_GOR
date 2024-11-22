@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ALISAPOMOGIModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brend">
+          <Key>
+            <PropertyRef Name="BrendID" />
+          </Key>
+          <Property Name="BrendID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrendName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clothes">
+          <Key>
+            <PropertyRef Name="ClothesID" />
+          </Key>
+          <Property Name="ClothesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naimenov" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="kolichestvo" Type="int" Nullable="false" />
+          <Property Name="cena" Type="money" Nullable="false" />
+          <Property Name="materialID" Type="int" Nullable="false" />
+          <Property Name="brendID" Type="int" Nullable="false" />
+          <Property Name="stranaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Strana">
+          <Key>
+            <PropertyRef Name="StranaID" />
+          </Key>
+          <Property Name="StranaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StranaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Clothes_Brend">
+          <End Role="Brend" Type="Self.Brend" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brend">
+              <PropertyRef Name="BrendID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="brendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clothes_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="materialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clothes_Strana">
+          <End Role="Strana" Type="Self.Strana" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Strana">
+              <PropertyRef Name="StranaID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="stranaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ALISAPOMOGIModelContainer">
+          <EntitySet Name="Brend" EntityType="Self.Brend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Strana" EntityType="Self.Strana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Clothes_Brend" Association="Self.FK_Clothes_Brend">
+            <End Role="Brend" EntitySet="Brend" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clothes_Material" Association="Self.FK_Clothes_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clothes_Strana" Association="Self.FK_Clothes_Strana">
+            <End Role="Strana" EntitySet="Strana" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ALISAPOMOGIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brend">
+          <Key>
+            <PropertyRef Name="BrendID" />
+          </Key>
+          <Property Name="BrendID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrendName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clothes" Relationship="Self.FK_Clothes_Brend" FromRole="Brend" ToRole="Clothes" />
+        </EntityType>
+        <EntityType Name="Clothes">
+          <Key>
+            <PropertyRef Name="ClothesID" />
+          </Key>
+          <Property Name="ClothesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naimenov" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kolichestvo" Type="Int32" Nullable="false" />
+          <Property Name="cena" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="materialID" Type="Int32" Nullable="false" />
+          <Property Name="brendID" Type="Int32" Nullable="false" />
+          <Property Name="stranaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Brend" Relationship="Self.FK_Clothes_Brend" FromRole="Clothes" ToRole="Brend" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Clothes_Material" FromRole="Clothes" ToRole="Material" />
+          <NavigationProperty Name="Strana" Relationship="Self.FK_Clothes_Strana" FromRole="Clothes" ToRole="Strana" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clothes" Relationship="Self.FK_Clothes_Material" FromRole="Material" ToRole="Clothes" />
+        </EntityType>
+        <EntityType Name="Strana">
+          <Key>
+            <PropertyRef Name="StranaID" />
+          </Key>
+          <Property Name="StranaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StranaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clothes" Relationship="Self.FK_Clothes_Strana" FromRole="Strana" ToRole="Clothes" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Clothes_Brend">
+          <End Role="Brend" Type="Self.Brend" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brend">
+              <PropertyRef Name="BrendID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="brendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clothes_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="materialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clothes_Strana">
+          <End Role="Strana" Type="Self.Strana" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Strana">
+              <PropertyRef Name="StranaID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="stranaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ALISAPOMOGIEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brend" EntityType="Self.Brend" />
+          <EntitySet Name="Clothes" EntityType="Self.Clothes" />
+          <EntitySet Name="Material" EntityType="Self.Material" />
+          <EntitySet Name="Strana" EntityType="Self.Strana" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Clothes_Brend" Association="Self.FK_Clothes_Brend">
+            <End Role="Brend" EntitySet="Brend" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clothes_Material" Association="Self.FK_Clothes_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clothes_Strana" Association="Self.FK_Clothes_Strana">
+            <End Role="Strana" EntitySet="Strana" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ALISAPOMOGIModelContainer" CdmEntityContainer="ALISAPOMOGIEntities1">
+          <EntitySetMapping Name="Brend">
+            <EntityTypeMapping TypeName="ALISAPOMOGIModel.Brend">
+              <MappingFragment StoreEntitySet="Brend">
+                <ScalarProperty Name="BrendID" ColumnName="BrendID" />
+                <ScalarProperty Name="BrendName" ColumnName="BrendName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clothes">
+            <EntityTypeMapping TypeName="ALISAPOMOGIModel.Clothes">
+              <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+                <ScalarProperty Name="naimenov" ColumnName="naimenov" />
+                <ScalarProperty Name="kolichestvo" ColumnName="kolichestvo" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="materialID" ColumnName="materialID" />
+                <ScalarProperty Name="brendID" ColumnName="brendID" />
+                <ScalarProperty Name="stranaID" ColumnName="stranaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="ALISAPOMOGIModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Strana">
+            <EntityTypeMapping TypeName="ALISAPOMOGIModel.Strana">
+              <MappingFragment StoreEntitySet="Strana">
+                <ScalarProperty Name="StranaID" ColumnName="StranaID" />
+                <ScalarProperty Name="StranaName" ColumnName="StranaName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ALISAPOMOGIModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

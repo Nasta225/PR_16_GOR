@@ -1,0 +1,27 @@
+﻿<Window x:Class="PR_16_GOR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PR_16_GOR"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800" Icon="Image/Логотип.PNG">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="54*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Background="#445C93">
+            <Image Source="/Image/Логотип.PNG"/>
+            <TextBlock Text="МАГАЗИН ОДЕЖДЫ" Width="580" TextAlignment="Center" Style="{StaticResource TextW}"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Background="#445C93" Grid.Row="2">
+        </StackPanel>
+        
+        <Frame x:Name="myFrame" NavigationUIVisibility="Hidden" Grid.Row="1" />
+    </Grid>
+</Window>
